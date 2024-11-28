@@ -1,21 +1,56 @@
 package Objeto.User;
 
-public class Cliente extends Usuario{
-    private String direccion;
-    private String dni;
+import java.sql.Timestamp;
+public class Cliente extends Persona {
+    private int idCliente;
+    private int idTipoCliente;
+    private int idEmpresa;
+    private Timestamp fechaRegistro;
 
-    public Cliente(String idUsuario, String nombres, String apellidos, String email, String telefono, String direccion, String dni) {
-        super(idUsuario, nombres, apellidos, email, telefono, RolUsuario.CLIENTE);
-        this.direccion = direccion;
-        this.dni = dni;
+    // Constructor vacío
+    public Cliente() {}
+
+    // Constructor con parámetros
+    public Cliente(int idCliente, int idTipoCliente, int idEmpresa, Timestamp fechaRegistro, int idPersona,
+                   String nombres, String apellidoPaterno, String apellidoMaterno, String dni, String direccion,
+                   String telefono, String correo, String genero, String fechaNacimiento) {
+        super(idPersona, nombres, apellidoPaterno, apellidoMaterno, dni, direccion, telefono, correo, genero, fechaNacimiento);
+        this.idCliente = idCliente;
+        this.idTipoCliente = idTipoCliente;
+        this.idEmpresa = idEmpresa;
+        this.fechaRegistro = fechaRegistro;
     }
 
-    @Override
-    public void registrarUsuario() {
-
+    // Getters y Setters
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void realizarReserva(){}
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
 
-    public void consultarReserva(){}
+    public int getIdTipoCliente() {
+        return idTipoCliente;
+    }
+
+    public void setIdTipoCliente(int idTipoCliente) {
+        this.idTipoCliente = idTipoCliente;
+    }
+
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(int idEmpresa) {
+        this.idEmpresa = idEmpresa;
+    }
+
+    public Timestamp getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Timestamp fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 }
