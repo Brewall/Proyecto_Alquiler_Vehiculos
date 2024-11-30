@@ -1,0 +1,117 @@
+package Recursos.Vistas;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
+
+public class LoginController {
+
+public class AuthMenuApp extends Application {
+
+    private Stage primaryStage;
+    private Scene loginScene;
+    private Scene roleScene;
+
+    @Override
+    public void start(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        primaryStage.setTitle("Inicio de sesión");
+
+        GridPane loginLayout = createLoginLayout();
+        loginScene = new Scene(loginLayout, 300, 200);
+
+        primaryStage.setScene(loginScene);
+        primaryStage.show();
+    }
+
+    private GridPane createLoginLayout() {
+        GridPane grid = new GridPane();
+        grid.setVgap(10);
+        grid.setHgap(10);
+
+        Label userLabel = new Label("Usuario:");
+        TextField userField = new TextField();
+        Label passwordLabel = new Label("Contraseña:");
+        PasswordField passwordField = new PasswordField();
+
+        Button loginButton = new Button("Iniciar sesión");
+        Button forgotPasswordButton = new Button("¿Olvidaste tu contraseña?");
+        Button registerButton = new Button("Registrarse");
+
+        loginButton.setOnAction(e -> handleLogin(userField.getText(), passwordField.getText()));
+        registerButton.setOnAction(e -> showAlert("Registro"));
+
+        grid.add(userLabel, 0, 0);
+        grid.add(userField, 1, 0);
+        grid.add(passwordLabel, 0, 1);
+        grid.add(passwordField, 1, 1);
+        grid.add(loginButton, 0, 2);
+        grid.add(forgotPasswordButton, 1, 2);
+        grid.add(registerButton, 0, 3);
+
+        return grid;
+    }
+
+    private void showRoleMenu() {
+        BorderPane roleLayout = new BorderPane();
+        MenuBar menuBar = new MenuBar();
+        Menu rolesMenu = new Menu("Roles:");
+        MenuItem adminItem = new MenuItem("Administrador");
+        MenuItem oficinistaItem = new MenuItem("Oficinista");
+        MenuItem clienteItem = new MenuItem("Cliente");
+
+        adminItem.setOnAction(e -> showAdminSubMenu());
+        oficinistaItem.setOnAction(e -> showOficinistaSubMenu());
+        clienteItem.setOnAction(e -> showClienteSubMenu());
+
+        rolesMenu.getItems().addAll(adminItem, oficinistaItem, clienteItem);
+        menuBar.getMenus().add(rolesMenu);
+        roleLayout.setTop(menuBar);
+        
+        roleScene = new Scene(roleLayout, 400, 300);
+        primaryStage.setScene(roleScene);
+    }
+
+    private void showAdminSubMenu() {
+        Empleado empleado = new Empleado();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Menú de administrador");
+        alert.setHeaderText(null);
+        alert.setContentText("Opciones para Administrador: \n1. Gestionar Usuarios\n2. Reportes");
+        alert.showAndWait();
+    }
+
+    private void showOficinistaSubMenu() {
+        Empleado empleado = new Empleado();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Menú Oficinista");
+        alert.setHeaderText(null);
+        alert.setContentText("Opciones para Oficinista: \n1. Manejar Documentos\n2. Atención al Cliente");
+        alert.showAndWait();
+    }
+
+    private void showClienteSubMenu() {
+        Cliente cliente = new Cliente();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Menú Cliente");
+        alert.setHeaderText(null);
+        alert.setContentText("Opciones para Cliente: \n1. Consultar Productos\n2. Realizar Pedidos");
+        alert.showAndWait();
+    }
+
+    private void showAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+}
